@@ -1,3 +1,17 @@
+//
+//  SignupView.swift
+//  AuthenticationUserdefaults
+//
+//  Created by Diggo Silva on 14/02/25.
+//
+
+import UIKit
+
+protocol SignupViewDelegate: AnyObject {
+    func signupButtonTapped()
+    func loginButtonTapped()
+}
+
 class SignupView: UIView {
     lazy var logoImageView = buildImageView(image: "envelope")
     lazy var emailTextField = buildTextField(placeholder: "Email")
