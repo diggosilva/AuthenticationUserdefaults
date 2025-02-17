@@ -10,6 +10,7 @@ import UIKit
 class SignupViewController: UIViewController {
     
     private let signupView = SignupView()
+    private let viewModel = SignupViewModel()
     
     override func loadView() {
         super.loadView()
@@ -38,6 +39,6 @@ extension SignupViewController: SignupViewDelegate {
     }
     
     func loginButtonTapped() {
-        print("Voltou para a tela de Login")
+        navigationController?.popToRootViewController(animated: true)
     }
 }
