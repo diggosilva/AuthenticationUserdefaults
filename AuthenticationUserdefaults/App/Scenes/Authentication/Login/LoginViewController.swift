@@ -1,8 +1,16 @@
+//
+//  LoginViewController.swift
+//  AuthenticationUserdefaults
+//
+//  Created by Diggo Silva on 16/02/25.
+//
+
 import UIKit
 
 class LoginViewController: UIViewController {
     
     private let loginView = LoginView()
+    private let viewModel = LoginViewModel()
     
     override func loadView() {
         super.loadView()
@@ -31,6 +39,7 @@ extension LoginViewController: LoginViewDelegate {
     }
     
     func signupButtonTapped() {
-        print("Vai para a tela de Cadastro")
+        let signupVC = SignupViewController()
+        navigationController?.pushViewController(signupVC, animated: true)
     }
 }

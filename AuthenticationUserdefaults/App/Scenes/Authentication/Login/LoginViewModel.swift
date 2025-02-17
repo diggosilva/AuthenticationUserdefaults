@@ -1,3 +1,26 @@
+//
+//  LoginViewModel.swift
+//  AuthenticationUserdefaults
+//
+//  Created by Diggo Silva on 16/02/25.
+//
+
+import Foundation
+
+enum LoginError: String, Error {
+    case invalidEmail = "Email inválido. Ex: exemplo@dominio.com"
+    case invalidPassword = "Senha inválida, deve ter no mínimo 6 caracteres"
+    case loginFailed = "Falha ao realizar Login! Verifica suas credencias e tente novamente."
+    
+    var localizedDescription: String {
+        return self.rawValue
+    }
+}
+
+protocol LoginViewModelProtocol {
+
+}
+
 class LoginViewModel: LoginViewModelProtocol {
     
     private let repository: RepositoryProtocol
