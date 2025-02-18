@@ -69,4 +69,12 @@ extension UIView {
         spinner.color = .white
         return spinner
     }
+    
+    func buildLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.textAlignment = .center
+        return label
+    }
 }
