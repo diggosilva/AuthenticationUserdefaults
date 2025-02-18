@@ -5,6 +5,11 @@
 //  Created by Diggo Silva on 17/02/25.
 //
 
+import UIKit
+
+protocol HomeViewDelegate: AnyObject {
+    func logoutButtonTapped()
+}
 
 class HomeView: UIView {
     lazy var welcomeLabel = buildLabel(text: "Bem Vindo, User!")
