@@ -9,8 +9,8 @@ import Foundation
 
 enum SignupError: String, Error {
     case invalidEmail = "Email inválido. Ex: exemplo@dominio.com"
-    case invalidPassword = "Senha inválida, deve ter no mínimo 6 caracteres"
-    case passwordMisMatch = "Senha inválida, senhas não coincidem, tente novamente"
+    case invalidPassword = "A senha deve ter no mínimo 6 caracteres"
+    case passwordMisMatch = "As senhas não coincidem, tente novamente"
     case userAlreadyExists = "Esse email já está sendo usado por outro usuário"
     case signupFailed = "Falha ao cadastrar o usuário, tente novamente"
     
@@ -31,6 +31,54 @@ class SignupViewModel: SignupViewModelProtocol {
         self.repository = repository
     }
     
+    func validateEmail(_ email: String, completion: @escaping(Result<String, SignupError>) -> Void) {
+        guard !email.trimmingCharacters(in: .whitespaces).isEmpty else {
+            completion(.failure(.invalidEmail))
+            return
+        }
+        
+        guard isValidEmail(email) else {
+            completion(.failure(.invalidEmail))
+            return
+        }
+        completion(.success(email))
+    }
+    
+    func validatePassword(_ password: String, completion: @escaping(Result<String, SignupError>) -> Void) {
+        guard password.count >= 6 else {
+            completion(.failure(.invalidPassword))
+            return
+        }
+        completion(.success(password))
+    }
+    
+    func validateConfirmPassword(_ confirmPassword: String, password: String, completion: @escaping(Result<String, SignupError>) -> Void) {
+        guard confirmPassword == password else {
+            completion(.failure(.passwordMisMatch))
+            return
+        }
+        completion(.success(confirmPassword))
+    }
+    
+    func createUser(_ email: String, _ password: String, completion: @escaping(Result<String, SignupError>) -> Void) {
+        let newUser = User(email: email, password: password)
+        repository.saveUser(user: newUser) { result in
+            switch result {
+            case .success(let email):
+                completion(.success(email))
+            case .failure(let error):
+                if error == .userAlreadyExists {
+                    completion(.failure(.userAlreadyExists))
+                } else {
+                    completion(.failure(.signupFailed))
+                }
+            }
+        }
+    }
+    
+    func loadUsers() -> Int {
+        return repository.getUsers().count
+    }
     
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
