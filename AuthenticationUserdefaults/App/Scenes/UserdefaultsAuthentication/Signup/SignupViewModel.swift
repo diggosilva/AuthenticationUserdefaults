@@ -20,7 +20,11 @@ enum SignupError: String, Error {
 }
 
 protocol SignupViewModelProtocol {
-
+    func validateEmail(_ email: String, completion: @escaping(Result<String, SignupError>) -> Void)
+    func validatePassword(_ password: String, completion: @escaping(Result<String, SignupError>) -> Void)
+    func validateConfirmPassword(_ confirmPassword: String, password: String, completion: @escaping(Result<String, SignupError>) -> Void)
+    func createUser(_ email: String, _ password: String, completion: @escaping(Result<String, SignupError>) -> Void)
+    func loadUsers() -> Int
 }
 
 class SignupViewModel: SignupViewModelProtocol {

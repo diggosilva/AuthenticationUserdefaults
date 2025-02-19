@@ -10,7 +10,7 @@ import UIKit
 class SignupViewController: UIViewController {
     
     private let signupView = SignupView()
-    private let viewModel = SignupViewModel()
+    private let viewModel: SignupViewModelProtocol = SignupViewModel()
     
     override func loadView() {
         super.loadView()

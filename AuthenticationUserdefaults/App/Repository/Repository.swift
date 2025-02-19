@@ -33,11 +33,10 @@ class Repository: RepositoryProtocol {
     func saveUser(user: User, completion: @escaping(Result<String, SignupError>) -> Void) {
         var savedUsers = getUsers()
         
-        if savedUsers.contains(where: {$0.email == user.email }) {
+        if savedUsers.contains(where: { $0.email == user.email }) {
             completion(.failure(.userAlreadyExists))
             return
         }
-        
         savedUsers.append(user)
         
         do {
