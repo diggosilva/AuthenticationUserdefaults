@@ -10,7 +10,7 @@ import Foundation
 enum LoginError: String, Error {
     case invalidEmail = "Email inválido. Ex: exemplo@dominio.com"
     case invalidPassword = "Senha inválida, deve ter no mínimo 6 caracteres"
-    case loginFailed = "Falha ao realizar Login! Verifica suas credencias e tente novamente."
+    case loginFailed = "Falha ao realizar Login! Verifique suas credencias e tente novamente."
     
     var localizedDescription: String {
         return self.rawValue
@@ -27,6 +27,39 @@ class LoginViewModel: LoginViewModelProtocol {
     
     init(repository: RepositoryProtocol = Repository()) {
         self.repository = repository
+    }
+    
+    func validateEmail(_ email: String, completion: @escaping(Result<String, LoginError>) -> Void) {
+        guard !email.trimmingCharacters(in: .whitespaces).isEmpty else {
+            completion(.failure(.invalidEmail))
+            return
+        }
+        
+        guard isValidEmail(email) else {
+            completion(.failure(.invalidEmail))
+            return
+        }
+        completion(.success(email))
+    }
+    
+    func validatePassword(_ password: String, completion: @escaping(Result<String, LoginError>) -> Void) {
+        guard password.count >= 6 else {
+            completion(.failure(.invalidPassword))
+            return
+        }
+        completion(.success(password))
+    }
+    
+    func loginUser(_ email: String, _ password: String, completion: @escaping(Result<String, LoginError>) -> Void) {
+        let user = User(email: email, password: password)
+        repository.loginUser(user: user) { result in
+            switch result {
+            case .success(_):
+                completion(.success(email))
+            case .failure(let error):
+                completion(.failure(.loginFailed))
+            }
+        }
     }
     
     
