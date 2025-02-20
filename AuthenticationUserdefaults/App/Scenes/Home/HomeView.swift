@@ -8,12 +8,12 @@
 import UIKit
 
 protocol HomeViewDelegate: AnyObject {
-    func logoutButtonTapped()
+    func deleteButtonTapped()
 }
 
 class HomeView: UIView {
     lazy var welcomeLabel = buildLabel(text: "Bem Vindo, User!")
-    lazy var logoutButton = buildButton(title: "Deslogar", color: .systemRed, selector: #selector(logoutButtonTapped))
+    lazy var deleteButton = buildButton(title: "Apagar Conta", color: .systemRed, selector: #selector(deleteButtonTapped))
     
     var email: String? {
         didSet {
@@ -32,8 +32,8 @@ class HomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func logoutButtonTapped() {
-        delegate?.logoutButtonTapped()
+    @objc func deleteButtonTapped() {
+        delegate?.deleteButtonTapped()
     }
     
     private func setupView() {
@@ -43,7 +43,7 @@ class HomeView: UIView {
     
     private func setHierarchy() {
         backgroundColor = .systemBackground
-        addSubviews(welcomeLabel, logoutButton)
+        addSubviews(welcomeLabel, deleteButton)
     }
     
     private func setConstraints() {
@@ -54,9 +54,9 @@ class HomeView: UIView {
             welcomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             welcomeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             
-            logoutButton.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: padding / 2),
-            logoutButton.leadingAnchor.constraint(equalTo: welcomeLabel.leadingAnchor),
-            logoutButton.trailingAnchor.constraint(equalTo: welcomeLabel.trailingAnchor),
+            deleteButton.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: padding / 2),
+            deleteButton.leadingAnchor.constraint(equalTo: welcomeLabel.leadingAnchor),
+            deleteButton.trailingAnchor.constraint(equalTo: welcomeLabel.trailingAnchor),
         ])
     }
 }
