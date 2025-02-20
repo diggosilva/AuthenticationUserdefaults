@@ -52,7 +52,7 @@ class Repository: RepositoryProtocol {
     func loginUser(user: User, completion: @escaping(Result<String, LoginError>) -> Void) {
         let savedUsers = getUsers()
         
-        if savedUsers.contains(where: { $0.email == user.email }) {
+        if savedUsers.contains(where: { $0.email == user.email && $0.password == user.password }) {
             completion(.success(user.email))
             return
         }

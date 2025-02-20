@@ -60,8 +60,8 @@ extension LoginViewController: LoginViewDelegate {
                         viewModel.loginUser(validEmail, validPassword) { [weak self] result in
                             guard let self = self else { return }
                             switch result {
-                            case .success(_):
-                                loggedInSuccessfullyGoToHomeScreen()
+                            case .success(let email):
+                                loggedInSuccessfullyGoToHomeScreen(email: email)
                             case .failure(let error):
                                 showAlertError(message: error.localizedDescription)
                             }
@@ -83,10 +83,11 @@ extension LoginViewController: LoginViewDelegate {
         present(alert, animated: true)
     }
     
-    private func loggedInSuccessfullyGoToHomeScreen() {
+    private func loggedInSuccessfullyGoToHomeScreen(email: String) {
         loginView.emailTextField.text = ""
         loginView.passwordTextField.text = ""
         let homeVC = HomeViewController()
+        homeVC.homeView.email = email
         navigationController?.pushViewController(homeVC, animated: true)
     }
 }
