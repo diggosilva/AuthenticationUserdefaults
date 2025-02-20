@@ -10,6 +10,7 @@ import Foundation
 protocol RepositoryProtocol {
     func getUsers() -> [User]
     func saveUser(user: User, completion: @escaping(Result<String, SignupError>) -> Void)
+    func loginUser(user: User, completion: @escaping(Result<String, LoginError>) -> Void)
 }
 
 class Repository: RepositoryProtocol {
@@ -48,8 +49,14 @@ class Repository: RepositoryProtocol {
         }
     }
     
-    func loginUser() {
+    func loginUser(user: User, completion: @escaping(Result<String, LoginError>) -> Void) {
+        let savedUsers = getUsers()
         
+        if savedUsers.contains(where: { $0.email == user.email }) {
+            completion(.success(user.email))
+            return
+        }
+        completion(.failure(.loginFailed))
     }
     
     func logoutUser() {
