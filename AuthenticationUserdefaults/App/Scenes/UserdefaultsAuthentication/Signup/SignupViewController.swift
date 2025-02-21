@@ -12,6 +12,7 @@ class SignupViewController: UIViewController {
     private let signupView = SignupView()
     private let viewModel: SignupViewModelProtocol = SignupViewModel()
     
+    // MARK: - Lifecycle Methods
     override func loadView() {
         super.loadView()
         view = signupView
@@ -21,6 +22,11 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureDelegatesAndDataSources()
+    }
+    
+    // MARK: - Configuration Methods
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     private func configureNavigationBar() {
@@ -33,6 +39,7 @@ class SignupViewController: UIViewController {
     }
 }
 
+// MARK: - SignupViewDelegate Extension
 extension SignupViewController: SignupViewDelegate {
     func signupButtonTapped() {
         print("Clicou no botão de Cadastro")
@@ -87,6 +94,7 @@ extension SignupViewController: SignupViewDelegate {
         navigationController?.popToRootViewController(animated: true)
     }
     
+    // MARK: - Helper Methods
     private func showAlertError(message: String) {
         let alert = UIAlertController(title: "Ops... algo deu errado!", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -96,6 +104,7 @@ extension SignupViewController: SignupViewDelegate {
     private func showAlertSuccess() {
         let alert = UIAlertController(title: "Cadastrado com sucesso!", message: "Faça o login para continuar.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            self.viewModel.logoutUser()
             self.navigationController?.popToRootViewController(animated: true)
         }))
         present(alert, animated: true)
