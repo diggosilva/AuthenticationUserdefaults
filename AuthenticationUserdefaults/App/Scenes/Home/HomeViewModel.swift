@@ -22,9 +22,14 @@ protocol HomeViewModelProtocol {
 class HomeViewModel: HomeViewModelProtocol {
     
     private let repository: RepositoryProtocol
+    var currentUser: User?
     
     init(repository: RepositoryProtocol = Repository()) {
         self.repository = repository
     }
     
+    func logoutUser() -> User? {
+        repository.logoutUser()
+        return nil
+    }
 }

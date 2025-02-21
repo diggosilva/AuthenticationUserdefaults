@@ -21,7 +21,6 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureDelegatesAndDataSources()
-        print("DEBUG: TOTAL usuarios: \(viewModel.loadUsers())")
     }
     
     private func configureNavigationBar() {

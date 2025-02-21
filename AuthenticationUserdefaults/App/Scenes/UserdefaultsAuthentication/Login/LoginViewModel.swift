@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Error Handling
 enum LoginError: String, Error {
     case invalidEmail = "Email inválido. Ex: exemplo@dominio.com"
     case invalidPassword = "Senha inválida, deve ter no mínimo 6 caracteres"
@@ -17,16 +18,24 @@ enum LoginError: String, Error {
     }
 }
 
+// MARK: - Protocol
 protocol LoginViewModelProtocol {
-
+    
 }
 
+// MARK: - ViewModel
 class LoginViewModel: LoginViewModelProtocol {
     
     private let repository: RepositoryProtocol
+    var users: [User] = []
     
     init(repository: RepositoryProtocol = Repository()) {
         self.repository = repository
+    }
+    
+    // MARK: - User Authentication
+    func checkIfUserIsLoggedIn() -> User? {
+        return repository.checkIfUserIsLoggedIn()
     }
     
     func validateEmail(_ email: String, completion: @escaping(Result<String, LoginError>) -> Void) {
@@ -62,6 +71,15 @@ class LoginViewModel: LoginViewModelProtocol {
         }
     }
     
+    func loadUsers() -> Int {
+        return repository.getUsers().count
+    }
+    
+    func getAllUsers() -> [User] {
+        repository.getUsers()
+    }
+    
+    // MARK: - Private Helper Methods
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         return email.range(of: emailRegex, options: .regularExpression, range: nil, locale: nil) != nil
