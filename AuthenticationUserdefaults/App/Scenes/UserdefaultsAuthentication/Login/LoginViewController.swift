@@ -12,17 +12,29 @@ class LoginViewController: UIViewController {
     private let loginView = LoginView()
     private let viewModel = LoginViewModel()
     
+    // MARK: - Lifecycle Methods
     override func loadView() {
         super.loadView()
         view = loginView
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ifUserIsLoggedInGoToHome()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
         configureDelegatesAndDataSources()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        clearTextFields()
+    }
+    
+    // MARK: - Configuration Methods
     private func configureNavigationBar() {
         title = "TELA DE LOGIN"
         navigationItem.hidesBackButton = true
@@ -31,9 +43,35 @@ class LoginViewController: UIViewController {
     private func configureDelegatesAndDataSources() {
         loginView.delegate = self
     }
+    
+    private func ifUserIsLoggedInGoToHome() {
+        if let loggedInUser = viewModel.checkIfUserIsLoggedIn() {
+            loggedInSuccessfullyGoToHomeScreen(email: loggedInUser.email)
+        } else {
+            print("DEBUG: TOTAL usuários CADASTRADOS: \(self.viewModel.loadUsers())")
+        }
+    }
+    
+    private func clearTextFields() {
+        loginView.emailTextField.text = ""
+        loginView.passwordTextField.text = ""
+    }
+    
+    private func loggedInSuccessfullyGoToHomeScreen(email: String) {
+        clearTextFields()
+        
+        let currentUser = User(email: email, password: "")
+        let homeVC = HomeViewController()
+        homeVC.homeView.email = currentUser.email
+        homeVC.viewModel.currentUser = currentUser
+        navigationController?.pushViewController(homeVC, animated: true)
+    }
 }
 
+// MARK: - LoginViewDelegate Extension
 extension LoginViewController: LoginViewDelegate {
+    
+    // MARK: Delegate Methods
     func loginButtonTapped() {
         print("Clicou no botão Logar")
         
@@ -45,25 +83,25 @@ extension LoginViewController: LoginViewDelegate {
             guard let self = self else { return }
             switch result {
             case .failure(let error):
-                showAlertError(message: error.localizedDescription)
+                self.showAlertError(message: error.localizedDescription)
             case .success(let validEmail):
                 
                 // Validar Senha
-                viewModel.validatePassword(password) { [weak self] result in
+                self.viewModel.validatePassword(password) { [weak self] result in
                     guard let self = self else { return }
                     switch result {
                     case .failure(let error):
-                        showAlertError(message: error.localizedDescription)
+                        self.showAlertError(message: error.localizedDescription)
                     case .success(let validPassword):
                         
                         // Logar Usuário
-                        viewModel.loginUser(validEmail, validPassword) { [weak self] result in
+                        self.viewModel.loginUser(validEmail, validPassword) { [weak self] result in
                             guard let self = self else { return }
                             switch result {
                             case .success(let email):
-                                loggedInSuccessfullyGoToHomeScreen(email: email)
+                                self.loggedInSuccessfullyGoToHomeScreen(email: email)
                             case .failure(let error):
-                                showAlertError(message: error.localizedDescription)
+                                self.showAlertError(message: error.localizedDescription)
                             }
                         }
                     }
@@ -77,17 +115,10 @@ extension LoginViewController: LoginViewDelegate {
         navigationController?.pushViewController(signupVC, animated: true)
     }
     
+    // MARK: - Helper Methods
     private func showAlertError(message: String) {
         let alert = UIAlertController(title: "Ops... algo deu errado!", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alert, animated: true)
-    }
-    
-    private func loggedInSuccessfullyGoToHomeScreen(email: String) {
-        loginView.emailTextField.text = ""
-        loginView.passwordTextField.text = ""
-        let homeVC = HomeViewController()
-        homeVC.homeView.email = email
-        navigationController?.pushViewController(homeVC, animated: true)
     }
 }
