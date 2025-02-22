@@ -7,12 +7,17 @@
 
 import Foundation
 
-class User: Codable {
+class User: Codable, CustomStringConvertible {
+    
     let email: String
     let password: String
     
     init(email: String, password: String) {
         self.email = email
         self.password = password
+    }
+    
+    var description: String {
+        return email
     }
 }
