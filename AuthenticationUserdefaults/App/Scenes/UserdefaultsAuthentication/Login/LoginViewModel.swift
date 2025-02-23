@@ -65,7 +65,7 @@ class LoginViewModel: LoginViewModelProtocol {
             switch result {
             case .success(_):
                 completion(.success(user.email))
-            case .failure(let error):
+            case .failure(_):
                 completion(.failure(.loginFailed))
             }
         }
