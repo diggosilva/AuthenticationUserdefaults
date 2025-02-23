@@ -36,17 +36,26 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func logoutTapped() {
-        guard viewModel.currentUser != nil else {
-            print("DEBUG: Erro ao tentar se deslogar.")
-            return
-        }
-        viewModel.logoutUser()
+        _ = viewModel.logoutUser()
         navigationController?.popToRootViewController(animated: true)
     }
 }
 
 extension HomeViewController: HomeViewDelegate {
     func deleteButtonTapped() {
-        print("Clicou no botão Apagar Conta")
+        showAlertDelete()
+    }
+    
+    private func showAlertDelete() {
+        let alert = UIAlertController(title: "", message: "Sua conta será deletada permanentemente.\nEssa ação não pode ser desfeita.", preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: "Apagar Desse iPhone", style: .destructive) { action in
+            self.navigationController?.popToRootViewController(animated: true)
+            guard let user = self.viewModel.currentUser else { return }
+            self.viewModel.deleteUser()
+            print("DEBUG: A CONTA \(String(describing: user.email)) FOI DELETADA.")
+        }
+        alert.addAction(delete)
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 }
