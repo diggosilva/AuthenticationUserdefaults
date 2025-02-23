@@ -13,6 +13,7 @@ protocol RepositoryProtocol {
     func saveUser(user: User, completion: @escaping(Result<String, SignupError>) -> Void)
     func loginUser(user: User, completion: @escaping(Result<String, LoginError>) -> Void)
     func logoutUser()
+    func deleteUser(user: User)
 }
 
 class Repository: RepositoryProtocol {
@@ -77,7 +78,12 @@ class Repository: RepositoryProtocol {
         userDefaults.removeObject(forKey: loggedInKey)
     }
     
-    func deleteUser() {
+    func deleteUser(user: User) {
+        var savedUsers = getUsers()
+        savedUsers.removeAll(where: { $0.email == user.email })
         
+        let encodedUsers = try? JSONEncoder().encode(savedUsers)
+        userDefaults.set(encodedUsers, forKey: usersKey)
+        users = savedUsers
     }
 }

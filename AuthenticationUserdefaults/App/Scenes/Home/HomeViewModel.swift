@@ -32,4 +32,10 @@ class HomeViewModel: HomeViewModelProtocol {
         repository.logoutUser()
         return nil
     }
+    
+    func deleteUser() {
+        guard let user = currentUser else { return }
+        currentUser = nil
+        repository.deleteUser(user: user)
+    }
 }

@@ -24,6 +24,7 @@ protocol SignupViewModelProtocol {
     func validatePassword(_ password: String, completion: @escaping(Result<String, SignupError>) -> Void)
     func validateConfirmPassword(_ confirmPassword: String, password: String, completion: @escaping(Result<String, SignupError>) -> Void)
     func createUser(_ email: String, _ password: String, completion: @escaping(Result<String, SignupError>) -> Void)
+    func logoutUser()
 }
 
 class SignupViewModel: SignupViewModelProtocol {
@@ -77,6 +78,10 @@ class SignupViewModel: SignupViewModelProtocol {
                 }
             }
         }
+    }
+    
+    func logoutUser() {
+        repository.logoutUser()
     }
     
     private func isValidEmail(_ email: String) -> Bool {

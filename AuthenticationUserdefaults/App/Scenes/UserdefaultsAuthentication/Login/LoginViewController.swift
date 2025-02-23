@@ -20,7 +20,9 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ifUserIsLoggedInGoToHome()
+        DispatchQueue.main.async {
+            self.ifUserIsLoggedInGoToHome()
+        }
     }
     
     override func viewDidLoad() {
@@ -35,6 +37,10 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: - Configuration Methods
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     private func configureNavigationBar() {
         title = "TELA DE LOGIN"
         navigationItem.hidesBackButton = true
@@ -49,6 +55,7 @@ class LoginViewController: UIViewController {
             loggedInSuccessfullyGoToHomeScreen(email: loggedInUser.email)
         } else {
             print("DEBUG: TOTAL usuários CADASTRADOS: \(self.viewModel.loadUsers())")
+            print("DEBUG: EMAIL dos usuários CADASTRADOS: \(self.viewModel.getAllUsers().description)")
         }
     }
     
@@ -58,13 +65,12 @@ class LoginViewController: UIViewController {
     }
     
     private func loggedInSuccessfullyGoToHomeScreen(email: String) {
-        clearTextFields()
-        
         let currentUser = User(email: email, password: "")
         let homeVC = HomeViewController()
         homeVC.homeView.email = currentUser.email
         homeVC.viewModel.currentUser = currentUser
         navigationController?.pushViewController(homeVC, animated: true)
+        clearTextFields()
     }
 }
 
@@ -72,9 +78,7 @@ class LoginViewController: UIViewController {
 extension LoginViewController: LoginViewDelegate {
     
     // MARK: Delegate Methods
-    func loginButtonTapped() {
-        print("Clicou no botão Logar")
-        
+    func loginButtonTapped() {        
         guard let email = loginView.emailTextField.text,
               let password = loginView.passwordTextField.text else { return }
         
