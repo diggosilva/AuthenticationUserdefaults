@@ -40,6 +40,7 @@ extension UIView {
         
         let btn = UIButton(configuration: configuration)
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.heightAnchor.constraint(equalToConstant: 40).isActive = true
         btn.addTarget(self, action: selector, for: .touchUpInside)
         return btn
     }

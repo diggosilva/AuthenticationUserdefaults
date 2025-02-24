@@ -52,13 +52,13 @@ class LoginView: UIView {
         let padding: CGFloat = 32
         
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            logoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding),
             logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 150),
-            logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),
+            logoImageView.heightAnchor.constraint(equalToConstant: 100),
             
+            vStack.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
             vStack.centerXAnchor.constraint(equalTo: centerXAnchor),
-            vStack.centerYAnchor.constraint(equalTo: centerYAnchor),
             vStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             vStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             
