@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Error Handling
 enum SignupError: String, Error {
     case invalidEmail = "Email inválido. Ex: exemplo@dominio.com"
     case invalidPassword = "A senha deve ter no mínimo 6 caracteres"
@@ -19,6 +20,7 @@ enum SignupError: String, Error {
     }
 }
 
+// MARK: - Protocol
 protocol SignupViewModelProtocol {
     func validateEmail(_ email: String, completion: @escaping(Result<String, SignupError>) -> Void)
     func validatePassword(_ password: String, completion: @escaping(Result<String, SignupError>) -> Void)
@@ -27,6 +29,7 @@ protocol SignupViewModelProtocol {
     func logoutUser()
 }
 
+// MARK: - ViewModel
 class SignupViewModel: SignupViewModelProtocol {
     
     private let repository: RepositoryProtocol
@@ -35,13 +38,14 @@ class SignupViewModel: SignupViewModelProtocol {
         self.repository = repository
     }
     
+    // MARK: - User Authentication
     func validateEmail(_ email: String, completion: @escaping(Result<String, SignupError>) -> Void) {
         guard !email.trimmingCharacters(in: .whitespaces).isEmpty else {
             completion(.failure(.invalidEmail))
             return
         }
         
-        guard isValidEmail(email) else {
+        guard repository.isValidEmail(email) else {
             completion(.failure(.invalidEmail))
             return
         }
@@ -65,27 +69,13 @@ class SignupViewModel: SignupViewModelProtocol {
     }
     
     func createUser(_ email: String, _ password: String, completion: @escaping(Result<String, SignupError>) -> Void) {
-        let newUser = User(email: email, password: password)
-        repository.saveUser(user: newUser) { result in
-            switch result {
-            case .success(let email):
-                completion(.success(email))
-            case .failure(let error):
-                if error == .userAlreadyExists {
-                    completion(.failure(.userAlreadyExists))
-                } else {
-                    completion(.failure(.signupFailed))
-                }
-            }
+        repository.saveUser(user: User(email: email, password: password)) { result in
+            completion(result)
         }
     }
     
+    // MARK: - Private Helper Methods
     func logoutUser() {
         repository.logoutUser()
-    }
-    
-    private func isValidEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        return email.range(of: emailRegex, options: .regularExpression, range: nil, locale: nil) != nil
     }
 }

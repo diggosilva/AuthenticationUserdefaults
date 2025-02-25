@@ -16,7 +16,9 @@ enum HomeError: String, Error {
 }
 
 protocol HomeViewModelProtocol {
-
+    func logoutUser() -> User?
+    func deleteUser()
+    var currentUser: User? { get set }
 }
 
 class HomeViewModel: HomeViewModelProtocol {
