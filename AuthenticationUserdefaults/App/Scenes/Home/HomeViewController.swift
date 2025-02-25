@@ -10,7 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     let homeView = HomeView()
-    let viewModel = HomeViewModel()
+    var viewModel: HomeViewModelProtocol = HomeViewModel()
     
     override func loadView() {
         super.loadView()

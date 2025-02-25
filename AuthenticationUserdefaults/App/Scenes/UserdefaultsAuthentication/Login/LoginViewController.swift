@@ -10,7 +10,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     private let loginView = LoginView()
-    private let viewModel = LoginViewModel()
+    private let viewModel: LoginViewModelProtocol = LoginViewModel()
     
     // MARK: - Lifecycle Methods
     override func loadView() {

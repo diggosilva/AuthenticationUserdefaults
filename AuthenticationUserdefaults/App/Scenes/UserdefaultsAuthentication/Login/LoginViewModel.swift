@@ -20,7 +20,12 @@ enum LoginError: String, Error {
 
 // MARK: - Protocol
 protocol LoginViewModelProtocol {
-    
+    func checkIfUserIsLoggedIn() -> User?
+    func validateEmail(_ email: String, completion: @escaping(Result<String, LoginError>) -> Void)
+    func validatePassword(_ password: String, completion: @escaping(Result<String, LoginError>) -> Void)
+    func loginUser(_ email: String, _ password: String, completion: @escaping(Result<String, LoginError>) -> Void)
+    func loadUsers() -> Int
+    func getAllUsers() -> [User]
 }
 
 // MARK: - ViewModel
@@ -44,7 +49,7 @@ class LoginViewModel: LoginViewModelProtocol {
             return
         }
         
-        guard isValidEmail(email) else {
+        guard repository.isValidEmail(email) else {
             completion(.failure(.invalidEmail))
             return
         }
@@ -60,28 +65,22 @@ class LoginViewModel: LoginViewModelProtocol {
     }
     
     func loginUser(_ email: String, _ password: String, completion: @escaping(Result<String, LoginError>) -> Void) {
-        let user = User(email: email, password: password)
-        repository.loginUser(user: user) { result in
+        repository.loginUser(user: User(email: email, password: password)) { result in
             switch result {
             case .success(_):
-                completion(.success(user.email))
+                completion(.success(email))
             case .failure(_):
                 completion(.failure(.loginFailed))
             }
         }
     }
     
+    // MARK: - Private Helper Methods
     func loadUsers() -> Int {
         return repository.getUsers().count
     }
     
     func getAllUsers() -> [User] {
         repository.getUsers()
-    }
-    
-    // MARK: - Private Helper Methods
-    private func isValidEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        return email.range(of: emailRegex, options: .regularExpression, range: nil, locale: nil) != nil
     }
 }

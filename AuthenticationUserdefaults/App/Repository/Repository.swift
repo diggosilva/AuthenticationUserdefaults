@@ -14,6 +14,8 @@ protocol RepositoryProtocol {
     func loginUser(user: User, completion: @escaping(Result<String, LoginError>) -> Void)
     func logoutUser()
     func deleteUser(user: User)
+    func isValidPassword(_ password: String) -> Bool
+    func isValidEmail(_ email: String) -> Bool
 }
 
 class Repository: RepositoryProtocol {
@@ -21,7 +23,7 @@ class Repository: RepositoryProtocol {
     private let usersKey = "usersKey"
     private let loggedInKey = "loggedInKey" // Chave para armazenar o e-mail do usuário logado
     var users: [User] = []
-
+    
     func checkIfUserIsLoggedIn() -> User? {
         // Verificar se existe um usuário logado no UserDefaults
         if let loggedInEmail = userDefaults.string(forKey: loggedInKey) {
@@ -48,6 +50,17 @@ class Repository: RepositoryProtocol {
         
         if savedUsers.contains(where: { $0.email == user.email }) {
             completion(.failure(.userAlreadyExists))
+            return
+        }
+        
+        // Validar os dados do usuário aqui
+        guard isValidEmail(user.email) else {
+            completion(.failure(.invalidEmail))
+            return
+        }
+        
+        guard isValidPassword(user.password) else {
+            completion(.failure(.invalidPassword))
             return
         }
         savedUsers.append(user)
@@ -86,4 +99,13 @@ class Repository: RepositoryProtocol {
         userDefaults.set(encodedUsers, forKey: usersKey)
         users = savedUsers
     }
+    
+    func isValidPassword(_ password: String) -> Bool {
+        return password.count >= 6
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+           let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+           return email.range(of: emailRegex, options: .regularExpression, range: nil, locale: nil) != nil
+       }
 }
