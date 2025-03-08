@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		921F2EF22D7C5FCF0055AA22 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92A5B93C2D5F6C75006951F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92A5B9432D5F6C75006951F4;
+			remoteInfo = AuthenticationUserdefaults;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		921F2EEE2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticationUserdefaultsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A5B9442D5F6C75006951F4 /* AuthenticationUserdefaults.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthenticationUserdefaults.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -21,6 +32,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		921F2EEF2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AuthenticationUserdefaultsTests;
+			sourceTree = "<group>";
+		};
 		92A5B9462D5F6C75006951F4 /* AuthenticationUserdefaults */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,6 +48,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		921F2EEB2D7C5FCF0055AA22 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92A5B9412D5F6C75006951F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				92A5B9462D5F6C75006951F4 /* AuthenticationUserdefaults */,
+				921F2EEF2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests */,
 				92A5B9452D5F6C75006951F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				92A5B9442D5F6C75006951F4 /* AuthenticationUserdefaults.app */,
+				921F2EEE2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +86,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		921F2EED2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 921F2EF62D7C5FCF0055AA22 /* Build configuration list for PBXNativeTarget "AuthenticationUserdefaultsTests" */;
+			buildPhases = (
+				921F2EEA2D7C5FCF0055AA22 /* Sources */,
+				921F2EEB2D7C5FCF0055AA22 /* Frameworks */,
+				921F2EEC2D7C5FCF0055AA22 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				921F2EF32D7C5FCF0055AA22 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				921F2EEF2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests */,
+			);
+			name = AuthenticationUserdefaultsTests;
+			packageProductDependencies = (
+			);
+			productName = AuthenticationUserdefaultsTests;
+			productReference = 921F2EEE2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		92A5B9432D5F6C75006951F4 /* AuthenticationUserdefaults */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92A5B9572D5F6C76006951F4 /* Build configuration list for PBXNativeTarget "AuthenticationUserdefaults" */;
@@ -93,6 +141,10 @@
 				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					921F2EED2D7C5FCF0055AA22 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 92A5B9432D5F6C75006951F4;
+					};
 					92A5B9432D5F6C75006951F4 = {
 						CreatedOnToolsVersion = 16.1;
 					};
@@ -113,11 +165,19 @@
 			projectRoot = "";
 			targets = (
 				92A5B9432D5F6C75006951F4 /* AuthenticationUserdefaults */,
+				921F2EED2D7C5FCF0055AA22 /* AuthenticationUserdefaultsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		921F2EEC2D7C5FCF0055AA22 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92A5B9422D5F6C75006951F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +188,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		921F2EEA2D7C5FCF0055AA22 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92A5B9402D5F6C75006951F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +204,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		921F2EF32D7C5FCF0055AA22 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92A5B9432D5F6C75006951F4 /* AuthenticationUserdefaults */;
+			targetProxy = 921F2EF22D7C5FCF0055AA22 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		921F2EF42D7C5FCF0055AA22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 57HYQW6DAG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.diggosilva.AuthenticationUserdefaultsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuthenticationUserdefaults.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AuthenticationUserdefaults";
+			};
+			name = Debug;
+		};
+		921F2EF52D7C5FCF0055AA22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 57HYQW6DAG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.diggosilva.AuthenticationUserdefaultsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuthenticationUserdefaults.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AuthenticationUserdefaults";
+			};
+			name = Release;
+		};
 		92A5B9582D5F6C76006951F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -312,6 +423,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		921F2EF62D7C5FCF0055AA22 /* Build configuration list for PBXNativeTarget "AuthenticationUserdefaultsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				921F2EF42D7C5FCF0055AA22 /* Debug */,
+				921F2EF52D7C5FCF0055AA22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		92A5B93F2D5F6C75006951F4 /* Build configuration list for PBXProject "AuthenticationUserdefaults" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
