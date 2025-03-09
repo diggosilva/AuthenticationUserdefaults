@@ -145,7 +145,7 @@ final class SignupViewModelTests: XCTestCase {
         }
     }
     
-    func testWhenCreateUserIsSuccess() {
+    func testWhenCreateUserIsSuccessful() {
         let expectation = self.expectation(description: "User creation should succeed")
         
         sut.createUser(user.email, user.password) { result in
@@ -174,7 +174,7 @@ final class SignupViewModelTests: XCTestCase {
     func testWhenEmailIsNotValid() {
         let repository = MockFailureSignup()
         let sut = SignupViewModel(repository: repository)
-        let invalidEmail:SignupError = .invalidEmail
+        let invalidEmail: SignupError = .invalidEmail
         
         sut.validateEmail(invalidEmail.rawValue) { result in
             switch result {
