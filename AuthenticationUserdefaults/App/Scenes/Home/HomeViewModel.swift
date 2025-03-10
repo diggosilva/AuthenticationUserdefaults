@@ -7,17 +7,9 @@
 
 import Foundation
 
-enum HomeError: String, Error {
-    case logoutFailed = "Falha ao realizar Logout! Tente novamente."
-    
-    var localizedDescription: String {
-        return self.rawValue
-    }
-}
-
 protocol HomeViewModelProtocol {
     func logoutUser() -> User?
-    func deleteUser()
+    func deleteUser() -> Bool
     var currentUser: User? { get set }
 }
 
@@ -35,9 +27,10 @@ class HomeViewModel: HomeViewModelProtocol {
         return nil
     }
     
-    func deleteUser() {
-        guard let user = currentUser else { return }
+    func deleteUser() -> Bool {
+        guard let user = currentUser else { return false }
         currentUser = nil
         repository.deleteUser(user: user)
+        return true
     }
 }
